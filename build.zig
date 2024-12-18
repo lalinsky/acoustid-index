@@ -44,6 +44,7 @@ pub fn build(b: *std.Build) void {
 
     if (optimize == .ReleaseFast) {
         main_exe.linkLibC();
+        main_exe.linkSystemLibrary("jemalloc");
     }
     main_exe.root_module.addImport("httpz", httpz.module("httpz"));
     main_exe.root_module.addImport("metrics", metrics.module("metrics"));

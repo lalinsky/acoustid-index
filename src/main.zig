@@ -7,6 +7,7 @@ const Scheduler = @import("utils/Scheduler.zig");
 const MultiIndex = @import("MultiIndex.zig");
 const server = @import("server.zig");
 const metrics = @import("metrics.zig");
+const jemalloc = @import("jemalloc.zig");
 
 pub const std_options = .{
     .log_level = .debug,
@@ -41,7 +42,7 @@ pub fn main() !void {
     var gpa: std.heap.GeneralPurposeAllocator(.{}) = .{};
     defer _ = gpa.deinit();
 
-    const allocator = if (builtin.mode == .ReleaseFast and !builtin.is_test) std.heap.c_allocator else gpa.allocator();
+    const allocator = if (builtin.mode == .ReleaseFast and !builtin.is_test) jemalloc.allocator else gpa.allocator();
 
     var args = try zul.CommandLineArgs.parse(allocator);
     defer args.deinit();

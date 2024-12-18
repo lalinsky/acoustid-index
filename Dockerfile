@@ -1,6 +1,6 @@
 FROM ubuntu:24.04
 
-RUN apt-get update && apt-get install -y glibc-tools
+RUN apt-get update && apt-get install -y glibc-tools libjemalloc2
 
 RUN useradd -m -s /bin/bash -u 6081 acoustid
 
